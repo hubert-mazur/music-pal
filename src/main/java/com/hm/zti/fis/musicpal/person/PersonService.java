@@ -1,12 +1,15 @@
 package com.hm.zti.fis.musicpal.person;
 
 import com.hm.zti.fis.musicpal.exceptions.person.UserExistsException;
+import com.hm.zti.fis.musicpal.exceptions.person.login.InvalidCredential;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -21,7 +24,6 @@ public class PersonService implements UserDetailsService {
 
     public String signUp(Person person) throws UserExistsException {
 
-
         boolean userExists = this.personRepository.getFirstByEmail(person.getEmail()).isPresent();
 
         if (userExists) {
@@ -35,4 +37,14 @@ public class PersonService implements UserDetailsService {
 
         return person.getEmail();
     }
+
+    public Boolean checkLoginCredentials(String email, String password) throws InvalidCredential {
+        Optional<Person> p = personRepository.getFirstByEmail(email);
+
+        if (!p.isPresent() || !bCryptPasswordEncoder.matches(password, p.get().getPassword()))
+            throw new InvalidCredential("Invalid email or password");
+
+        return true;
+    }
+
 }
