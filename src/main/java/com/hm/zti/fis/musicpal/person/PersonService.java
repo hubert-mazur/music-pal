@@ -25,7 +25,6 @@ public class PersonService implements UserDetailsService {
         boolean userExists = this.personRepository.getFirstByEmail(person.getEmail()).isPresent();
 
         if (userExists) {
-            System.out.println("Email is invalid throwing an exception");
             throw new UserExistsException("User with email " + person.getEmail() + "exists");
         }
 

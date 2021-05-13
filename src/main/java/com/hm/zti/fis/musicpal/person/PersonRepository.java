@@ -9,6 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface PersonRepository extends Neo4jRepository<Person, Long> {
-//    Optional<Person> getPersonByEmail(String email);
     Optional<Person> getFirstByEmail(String email);
 }

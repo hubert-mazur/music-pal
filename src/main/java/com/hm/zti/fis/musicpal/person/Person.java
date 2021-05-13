@@ -1,9 +1,6 @@
 package com.hm.zti.fis.musicpal.person;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
@@ -11,7 +8,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -19,9 +15,9 @@ import java.util.Collections;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode
 public class Person implements UserDetails {
-    // TODO: Check error mapping from neo4j node to java object
     @Id
     @GeneratedValue
     private Long id;
@@ -35,6 +31,7 @@ public class Person implements UserDetails {
     private String password;
 
     private PersonRole personRole;
+
 
     public Person(String firstName, String lastName, String email, String password, PersonRole personRole) {
         this.firstName = firstName;

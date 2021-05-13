@@ -1,5 +1,6 @@
 package com.hm.zti.fis.musicpal.registration;
 
+import com.hm.zti.fis.musicpal.exceptions.person.InvalidEmailException;
 import com.hm.zti.fis.musicpal.exceptions.person.UserExistsException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ public class RegistrationController {
     private final RegistrationService registrationService;
 
     @PostMapping
-    public String register(@RequestBody RegistrationRequest request) throws UserExistsException {
+    public String register(@RequestBody RegistrationRequest request) throws UserExistsException, InvalidEmailException {
             return registrationService.register(request);
     }
 }
