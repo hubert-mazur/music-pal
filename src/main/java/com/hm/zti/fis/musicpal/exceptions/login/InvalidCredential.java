@@ -1,4 +1,4 @@
-package com.hm.zti.fis.musicpal.exceptions.person.login;
+package com.hm.zti.fis.musicpal.exceptions.login;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

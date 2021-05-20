@@ -2,7 +2,7 @@ package com.hm.zti.fis.musicpal.person;
 
 import com.hm.zti.fis.musicpal.exceptions.person.UserExistsException;
 import com.hm.zti.fis.musicpal.exceptions.person.UserNotExistsException;
-import com.hm.zti.fis.musicpal.exceptions.person.login.InvalidCredential;
+import com.hm.zti.fis.musicpal.exceptions.login.InvalidCredential;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
