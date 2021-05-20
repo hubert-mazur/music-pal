@@ -1,33 +1,44 @@
 package com.hm.zti.fis.musicpal.person;
 
+import com.hm.zti.fis.musicpal.exceptions.person.UserNotExistsException;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/api/person")
 @Service
 @AllArgsConstructor
 public class PersonController {
-    private final PersonRepository personRepository;
+    private final PersonService personService;
 
-    @GetMapping(path = "/hello")
-    public String hello() {
-        return "Hello, this is protected site";
+    @GetMapping()
+    public Person hello() throws UserNotExistsException {
+        return this.personService.getUserInfo();
     }
 
     @DeleteMapping()
     public void deleteAccount() {
         String email = ((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
-        Optional<Person> p = personRepository.getFirstByEmail(email);
-        this.personRepository.delete(p.get());
+        this.personService.deletePerson(email);
+    }
+
+    @PatchMapping("/firstname")
+    public void changeFirstName(@RequestBody PatchRequest request) throws UserNotExistsException {
+        this.personService.changeUserDetails(request.getValue(), "firstName");
+    }
+
+    @PatchMapping("/lastname")
+    public void changeLastName(@RequestBody PatchRequest request) throws UserNotExistsException {
+        this.personService.changeUserDetails(request.getValue(), "lastName");
+    }
+
+    @PatchMapping("/password")
+    public void changePassword(@RequestBody PatchRequest request) throws UserNotExistsException {
+        this.personService.changeUserDetails(request.getValue(), "password");
     }
 
     // TODO: Implement PATCH mappings

@@ -13,4 +13,5 @@ public interface PersonRepository extends Neo4jRepository<Person, Long> {
     Optional<Person> getFirstByEmail(String email);
     Boolean existsByEmail(String email);
     Object deleteAllByEmail(String email);
+    void deleteByEmail(String email);
 }
