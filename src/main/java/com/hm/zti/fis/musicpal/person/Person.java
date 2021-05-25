@@ -13,13 +13,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 @Node("Person")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
 public class Person implements UserDetails {
     @Id
     @GeneratedValue
@@ -39,13 +39,13 @@ public class Person implements UserDetails {
     private List<Event> ownedEvents;
 
     @Relationship(type = "TAKES_PART", direction = Relationship.Direction.OUTGOING)
-    private List<Event> participatedEvents;
+    private Set<Event> participatedEvents;
 
     @Relationship(type = "UPVOTED", direction = Relationship.Direction.OUTGOING)
-    private List<Event> upVotes;
+    private Set<Event> upVotes;
 
     @Relationship(type = "DOWNVOTED", direction = Relationship.Direction.OUTGOING)
-    private List<Event> downVotes;
+    private Set<Event> downVotes;
 
 
     public Person(String firstName, String lastName, String email, String password, PersonRole personRole) {

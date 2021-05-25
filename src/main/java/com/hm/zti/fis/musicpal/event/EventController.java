@@ -24,9 +24,6 @@ public class EventController {
 
     @DeleteMapping(path = "/{id}")
     public void deleteEvent(@PathVariable Long id) throws UserNotExistsException, EventNotOwnedException {
-
-
-
         this.eventService.deleteEvent(id);
     }
 
@@ -39,4 +36,15 @@ public class EventController {
     public void changeDescription(@PathVariable Long id, @RequestBody PatchRequest request) throws EventNotFoundException, UserNotExistsException, EventNotOwnedException {
         this.eventService.changeProperty(id, request.getValue(), "description");
     }
+
+    @PutMapping(path = "/{eventId}/invite/{personId}")
+    public void inviteToEvent(@PathVariable Long eventId, @PathVariable Long personId) throws UserNotExistsException, EventNotOwnedException, EventNotFoundException {
+        this.eventService.addPersonToEvent(eventId, personId);
+    }
+
+    @DeleteMapping(path = "/{eventId}/remove/{personId}")
+    public void removeFromEvent(@PathVariable Long eventId, @PathVariable Long personId) throws UserNotExistsException, EventNotOwnedException, EventNotFoundException {
+        this.eventService.removePersonFromEvent(eventId, personId);
+    }
+
 }

@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -32,6 +33,7 @@ public class PersonService implements UserDetailsService {
         return person;
     }
 
+
     public String signUp(Person person) throws UserExistsException {
 
         boolean userExists = this.personRepository.getFirstByEmail(person.getEmail()).isPresent();
@@ -47,6 +49,12 @@ public class PersonService implements UserDetailsService {
 
         return person.getEmail();
     }
+
+    public List<PersonBasicInfo> getPeople() {
+        return (List<PersonBasicInfo>) this.personRepository.findAllBy();
+    }
+
+    public PersonBasicInfo getIdentity() throws UserNotExistsException {return this.personRepository.findPersonById(this.getUserInfo().getId());}
 
     public Boolean checkLoginCredentials(String email, String password) throws InvalidCredential {
         Optional<Person> p = personRepository.getFirstByEmail(email);

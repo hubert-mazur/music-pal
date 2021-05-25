@@ -9,6 +9,7 @@ import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Relationship;
 
 import java.util.List;
+import java.util.Set;
 
 @Node("event")
 @Getter
@@ -16,7 +17,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@EqualsAndHashCode
 public class Event {
     @Id
     @GeneratedValue
@@ -25,10 +25,10 @@ public class Event {
     private String description;
 
     @Relationship(type = "TAKES_PART", direction = Relationship.Direction.INCOMING)
-    private List<Person> participants;
+    private Set<Person> participants;
 
     @Relationship(type = "HAS", direction = Relationship.Direction.OUTGOING)
-    private List<Link> links;
+    private Set<Link> links;
     
     public Event(String title, String description) {
         this.title = title;

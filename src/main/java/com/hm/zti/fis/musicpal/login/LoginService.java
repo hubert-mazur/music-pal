@@ -13,6 +13,7 @@ public class LoginService {
     private final JwtTokenUtil jwtTokenUtil;
 
     public String login(LoginRequest loginRequest) throws InvalidCredential {
+
         personService.checkLoginCredentials(loginRequest.getEmail(), loginRequest.getPassword());
         return jwtTokenUtil.generateToken(loginRequest.getEmail());
     }

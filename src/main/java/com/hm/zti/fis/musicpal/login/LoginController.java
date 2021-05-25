@@ -14,7 +14,6 @@ public class LoginController {
 
     @PostMapping()
     public String login(@RequestBody LoginRequest loginRequest) throws InvalidCredential {
-
         return loginService.login(loginRequest);
     }
 

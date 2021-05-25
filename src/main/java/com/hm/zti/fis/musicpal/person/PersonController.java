@@ -7,6 +7,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping(path = "/api/person")
@@ -16,9 +18,15 @@ public class PersonController {
     private final PersonService personService;
 
     @GetMapping()
-    public Person hello() throws UserNotExistsException {
-        return this.personService.getUserInfo();
+    public List<PersonBasicInfo> hello() throws UserNotExistsException {
+        return  this.personService.getPeople();
     }
+
+    @GetMapping(path = "/identity")
+    public PersonBasicInfo identity() throws UserNotExistsException {
+        return this.personService.getIdentity();
+    }
+
 
     @DeleteMapping()
     public void deleteAccount() {
@@ -41,5 +49,4 @@ public class PersonController {
         this.personService.changeUserDetails(request.getValue(), "password");
     }
 
-    // TODO: Implement PATCH mappings
 }
