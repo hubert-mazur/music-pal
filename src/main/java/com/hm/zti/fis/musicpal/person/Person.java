@@ -1,6 +1,7 @@
 package com.hm.zti.fis.musicpal.person;
 
 import com.hm.zti.fis.musicpal.event.Event;
+import com.hm.zti.fis.musicpal.link.Link;
 import lombok.*;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
@@ -42,10 +43,10 @@ public class Person implements UserDetails {
     private Set<Event> participatedEvents;
 
     @Relationship(type = "UPVOTED", direction = Relationship.Direction.OUTGOING)
-    private Set<Event> upVotes;
+    private Set<Link> upVotes;
 
     @Relationship(type = "DOWNVOTED", direction = Relationship.Direction.OUTGOING)
-    private Set<Event> downVotes;
+    private Set<Link> downVotes;
 
 
     public Person(String firstName, String lastName, String email, String password, PersonRole personRole) {
