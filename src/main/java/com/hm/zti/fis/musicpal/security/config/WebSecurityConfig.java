@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.reactive.CorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
@@ -27,6 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
+                .cors().and()
                 .authorizeRequests()
                 .antMatchers("/api/register/**", "/api/login/**")
                 .permitAll()
@@ -47,5 +49,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         provider.setUserDetailsService(this.appUserService);
         return provider;
     }
+
 }
 

@@ -1,22 +1,26 @@
 package com.hm.zti.fis.musicpal.person;
 
+import com.hm.zti.fis.musicpal.event.Event;
+import com.hm.zti.fis.musicpal.link.Link;
 import lombok.*;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
+import org.springframework.data.neo4j.core.schema.Relationship;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
 @Node("Person")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
 public class Person implements UserDetails {
     @Id
     @GeneratedValue
@@ -31,6 +35,18 @@ public class Person implements UserDetails {
     private String password;
 
     private PersonRole personRole;
+
+    @Relationship(type = "CREATED", direction = Relationship.Direction.OUTGOING)
+    private List<Event> ownedEvents;
+
+    @Relationship(type = "TAKES_PART", direction = Relationship.Direction.OUTGOING)
+    private Set<Event> participatedEvents;
+
+    @Relationship(type = "UPVOTED", direction = Relationship.Direction.OUTGOING)
+    private Set<Link> upVotes;
+
+    @Relationship(type = "DOWNVOTED", direction = Relationship.Direction.OUTGOING)
+    private Set<Link> downVotes;
 
 
     public Person(String firstName, String lastName, String email, String password, PersonRole personRole) {
@@ -72,5 +88,3 @@ public class Person implements UserDetails {
         return false;
     }
 }
-
-

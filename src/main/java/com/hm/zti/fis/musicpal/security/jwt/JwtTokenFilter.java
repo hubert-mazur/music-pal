@@ -24,7 +24,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
         final String auth_token = httpServletRequest.getHeader("auth-token");
-
+        System.out.println("Token sent by client: " + auth_token);
         String email = null;
         if (auth_token != null)
             email = jwtTokenUtil.getUserEmail(auth_token);
