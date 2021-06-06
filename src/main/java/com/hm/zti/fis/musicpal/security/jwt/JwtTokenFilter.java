@@ -1,7 +1,10 @@
 package com.hm.zti.fis.musicpal.security.jwt;
 
+import com.hm.zti.fis.musicpal.exceptions.jwt.InvalidJWT;
 import com.hm.zti.fis.musicpal.person.PersonService;
+import io.jsonwebtoken.MalformedJwtException;
 import lombok.AllArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,14 +24,14 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     private final JwtTokenUtil jwtTokenUtil;
     private final PersonService personService;
 
+    @SneakyThrows
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
         final String auth_token = httpServletRequest.getHeader("auth-token");
-        System.out.println("Token sent by client: " + auth_token);
-        String email = null;
-        if (auth_token != null)
-            email = jwtTokenUtil.getUserEmail(auth_token);
 
+        String email = null;
+            if (auth_token != null)
+                email = jwtTokenUtil.getUserEmail(auth_token);
 
         if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails details = this.personService.loadUserByUsername(email);
