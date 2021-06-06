@@ -1,5 +1,8 @@
 package com.hm.zti.fis.musicpal.person;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.hm.zti.fis.musicpal.event.Event;
 import com.hm.zti.fis.musicpal.link.Link;
 import lombok.*;
@@ -21,6 +24,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@Id")
 public class Person implements UserDetails {
     @Id
     @GeneratedValue
@@ -37,10 +41,10 @@ public class Person implements UserDetails {
     private PersonRole personRole;
 
     @Relationship(type = "CREATED", direction = Relationship.Direction.OUTGOING)
-    private List<Event> ownedEvents;
+    private Set<Event> ownedEvents;
 
     @Relationship(type = "TAKES_PART", direction = Relationship.Direction.OUTGOING)
-    private Set<Event> participatedEvents;
+    private List<Event> participatedEvents;
 
     @Relationship(type = "UPVOTED", direction = Relationship.Direction.OUTGOING)
     private Set<Link> upVotes;
