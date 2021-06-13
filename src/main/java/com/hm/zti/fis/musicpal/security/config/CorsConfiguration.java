@@ -12,7 +12,7 @@ public class CorsConfiguration {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("http://localhost:3000").allowedHeaders("Content-Type", "auth-token").allowedMethods("GET", "POST", "PATCH", "PUT", "DELETE");
+                registry.addMapping("/**").allowedOrigins("https://musicpal-fe.herokuapp.com").allowedHeaders("Content-Type", "auth-token").allowedMethods("GET", "POST", "PATCH", "PUT", "DELETE");
             }
         };
     }
