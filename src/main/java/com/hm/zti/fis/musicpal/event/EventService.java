@@ -100,7 +100,6 @@ public class EventService {
             this.eventRepository.setParticipant(event.getId(), id);
 
         this.eventRepository.setOwnership(event.getId(), creator.getId());
-
     }
 
     public void addPersonToEvent(Long eventId, Long personId) throws UserNotExistsException, EventNotFoundException, EventNotOwnedException, EventReadOnly {
@@ -233,8 +232,9 @@ public class EventService {
                 downvotes.add(link);
         }
 
-        person.setUpVotes(upvotes);
         person.setDownVotes(downvotes);
+        person.setUpVotes(upvotes);
+//        this.personRepository.save(person);
         this.personRepository.save(person);
     }
 

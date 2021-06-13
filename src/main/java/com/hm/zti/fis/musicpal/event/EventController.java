@@ -36,6 +36,7 @@ public class EventController {
 
     @PostMapping
     public void addEvent(@RequestBody EventRequest request) throws UserNotExistsException, EventNotFoundException {
+        System.out.println("HERE");
         this.eventService.addEvent(request);
     }
 
