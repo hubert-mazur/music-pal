@@ -96,8 +96,13 @@ public class EventService {
 
         Person creator = this.getContextUser();
 
-        for (Long id : eventRequest.getParticipants())
-            this.eventRepository.setParticipant(event.getId(), id);
+        if (eventRequest.getParticipants() == null || eventRequest.getParticipants().stream().noneMatch(x -> x.equals(creator.getId()))) {
+            this.eventRepository.setParticipant(event.getId(), creator.getId());
+        }
+
+        if (eventRequest.getParticipants() != null)
+            for (Long id : eventRequest.getParticipants())
+                this.eventRepository.setParticipant(event.getId(), id);
 
         this.eventRepository.setOwnership(event.getId(), creator.getId());
     }
