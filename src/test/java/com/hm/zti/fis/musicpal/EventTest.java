@@ -42,6 +42,7 @@ public class EventTest {
 
     @BeforeAll
     void setUser() throws UserExistsException {
+        this.personRepository.deleteAll();
             this.personService.signUp(new Person("test", "test", "test@localhost.com", "test", PersonRole.USER));
 
     }

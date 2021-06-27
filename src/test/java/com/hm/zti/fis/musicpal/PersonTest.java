@@ -29,6 +29,7 @@ public class PersonTest {
 
     @BeforeAll
     void setup() throws UserExistsException {
+        this.personRepository.deleteAll();
         this.person = new Person("Test", "User", "test@localhost.com", "test", PersonRole.USER);
         this.personService.signUp(this.person);
     }
