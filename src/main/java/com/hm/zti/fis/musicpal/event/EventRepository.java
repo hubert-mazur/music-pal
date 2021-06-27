@@ -24,4 +24,5 @@ public interface EventRepository extends Neo4jRepository<Event, Long> {
     @Query("MATCH (e:event) where id(e) = $eventId SET e.closed = true return e")
     Event setClosed(@Param("eventId") Long eventId);
 
+
 }
